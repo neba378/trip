@@ -103,7 +103,11 @@ export default function Navbar() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-[60] lg:hidden"
-            style={{ background: 'rgba(18,25,38,0.99)' }}
+            style={{
+              background: 'rgba(18,25,38,0.98)',
+              backdropFilter: 'blur(24px) saturate(1.4)',
+              WebkitBackdropFilter: 'blur(24px) saturate(1.4)',
+            }}
           >
             <div className="h-full flex flex-col">
               {/* Close button */}

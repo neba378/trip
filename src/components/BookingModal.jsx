@@ -137,7 +137,7 @@ export default function BookingModal({ trip, onClose }) {
               >
                 <div className="space-y-4">
                   <label className="text-xs font-bold text-savanna-cream/40 uppercase tracking-widest ml-1">Select Traveler Type</label>
-                  <div className="grid grid-cols-1 xs:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {travelerTypes.map(t => (
                       <button 
                         key={t.value} 

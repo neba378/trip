@@ -101,6 +101,12 @@ export default function TripDetail() {
               </button>
             ))}
           </div>
+          {/* Mobile image dots */}
+          <div className="flex md:hidden gap-2 absolute bottom-6 left-1/2 -translate-x-1/2 z-10">
+            {images.map((img, i) => (
+              <button key={i} onClick={() => setActiveImg(i)} className={`w-2 h-2 rounded-full transition-all ${i === activeImg ? 'bg-savanna-gold w-4' : 'bg-white/40'}`} aria-label={`View image ${i + 1}`} />
+            ))}
+          </div>
         </div>
       </div>
 

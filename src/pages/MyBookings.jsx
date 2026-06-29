@@ -259,16 +259,16 @@ export default function MyBookings() {
                                 ))}
                               </div>
 
-                              <div className="mt-5 pt-4 border-t border-savanna-gold/10 flex items-center justify-between">
-                                <div className="flex items-center gap-2 text-xs text-savanna-cream/25">
-                                  <div className="w-6 h-6 rounded-lg bg-savanna-gold/10 border border-savanna-gold/20 flex items-center justify-center">
+                              <div className="mt-5 pt-4 border-t border-savanna-gold/10">
+                                <div className="flex items-center gap-2 text-xs text-savanna-cream/25 flex-wrap">
+                                  <div className="w-6 h-6 rounded-lg bg-savanna-gold/10 border border-savanna-gold/20 flex items-center justify-center shrink-0">
                                     <span className="text-[9px] font-black text-savanna-gold">
                                       {booking.firstName?.[0]}{booking.lastName?.[0]}
                                     </span>
                                   </div>
-                                  {booking.firstName} {booking.lastName}
-                                  <span className="text-savanna-cream/15 mx-1">·</span>
-                                  {booking.email}
+                                  <span className="truncate max-w-[120px] sm:max-w-[200px]">{booking.firstName} {booking.lastName}</span>
+                                  <span className="text-savanna-cream/15 mx-1 shrink-0">·</span>
+                                  <span className="truncate max-w-[140px] sm:max-w-[250px]">{booking.email}</span>
                                 </div>
                               </div>
                             </div>

@@ -75,12 +75,12 @@ export default function Gallery() {
                 src={item.src}
                 alt={item.caption}
                 loading="lazy"
-                className="w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                className="w-full object-cover group-hover:scale-105 transition-transform duration-500 max-h-[80vh]"
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
-                <ZoomIn size={28} className="text-white text-white-static opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ZoomIn size={28} className="text-white text-white-static opacity-0 group-hover:opacity-100 transition-opacity md:opacity-0" />
               </div>
-              <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent md:opacity-0 md:group-hover:opacity-100 transition-opacity">
                 <p className="text-white text-white-static text-sm font-medium">
                   {language === 'en' ? item.caption : item.captionAm}
                 </p>

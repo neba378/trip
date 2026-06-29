@@ -252,7 +252,7 @@ export default function Home() {
           >
             {stats.map((s, i) => (
               <div key={i} className="text-center relative group">
-                <div className="text-savanna-gold font-display font-black text-4xl md:text-5xl mb-2 group-hover:scale-110 transition-transform duration-500">{s.value}</div>
+                <div className="text-savanna-gold font-display font-black text-3xl sm:text-4xl md:text-5xl mb-2 group-hover:scale-110 transition-transform duration-500">{s.value}</div>
                 <div className="text-savanna-cream/40 text-[10px] uppercase tracking-[0.2em] font-bold">
                   {language === 'en' ? s.labelEn : s.labelAm}
                 </div>

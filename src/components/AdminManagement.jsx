@@ -112,7 +112,7 @@ export default function AdminManagement() {
             admins.map((admin) => (
               <div key={admin.id} className="flex items-center justify-between p-6 gap-4">
                 <div className="min-w-0">
-                  <div className="font-bold text-white flex items-center gap-2">
+                  <div className="font-bold text-white flex items-center gap-2 truncate">
                     {admin.name}
                     {!admin.isActive && (
                       <span className="text-[9px] font-bold uppercase tracking-widest text-red-400 bg-red-500/10 px-2 py-0.5 rounded-full">
