@@ -35,10 +35,6 @@ export default function Navbar() {
       className={`fixed top-0 left-0 right-0 z-50 bg-savanna-darker transition-all duration-300 ease-out ${
         scrolled ? 'h-14 shadow-[0_1px_0_rgba(212,160,23,0.12)]' : 'h-[72px]'
       }`}
-      style={{
-        backdropFilter: 'blur(20px) saturate(1.4)',
-        WebkitBackdropFilter: 'blur(20px) saturate(1.4)',
-      }}
     >
       <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
         {/* Logo */}
@@ -103,11 +99,8 @@ export default function Navbar() {
       transition={{ duration: 0.2 }}
       className="fixed inset-0 z-[60] lg:hidden"
     >
-      {/* Solid background layer — sits behind everything, guaranteed opaque */}
-      <div
-        className="absolute inset-0"
-        style={{ backgroundColor: '#121926' }}
-      />
+      {/* Solid background layer */}
+      <div className="absolute inset-0 bg-savanna-darker" />
 
       {/* Content layer */}
       <div className="relative h-full flex flex-col">
