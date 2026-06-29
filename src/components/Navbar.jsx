@@ -32,11 +32,10 @@ export default function Navbar() {
     <header
       role="navigation"
       aria-label="Main"
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out ${
+      className={`fixed top-0 left-0 right-0 z-50 bg-savanna-darker transition-all duration-300 ease-out ${
         scrolled ? 'h-14 shadow-[0_1px_0_rgba(212,160,23,0.12)]' : 'h-[72px]'
       }`}
       style={{
-        background: '#121926',
         backdropFilter: 'blur(20px) saturate(1.4)',
         WebkitBackdropFilter: 'blur(20px) saturate(1.4)',
       }}
@@ -86,7 +85,7 @@ export default function Navbar() {
         <div className="flex lg:hidden items-center gap-3">
           <button
             onClick={() => setMobileOpen(true)}
-            className="flex items-center justify-center w-10 h-10 rounded-lg text-white/60 hover:text-savanna-gold transition-all duration-200"
+            className="flex items-center justify-center w-10 h-10 rounded-xl bg-savanna-gold/10 text-white hover:bg-savanna-gold hover:text-savanna-darker transition-all duration-200"
             aria-label="Open menu"
           >
             <Menu size={20} />
@@ -115,7 +114,7 @@ export default function Navbar() {
                 <span className="text-white font-display font-bold text-xl">SAVANNA</span>
                 <button
                   onClick={() => setMobileOpen(false)}
-            className="flex items-center justify-center w-10 h-10 rounded-lg text-white hover:text-savanna-gold transition-all duration-200"
+            className="flex items-center justify-center w-10 h-10 rounded-xl bg-savanna-gold/10 text-white hover:bg-savanna-gold hover:text-savanna-darker transition-all duration-200"
                   aria-label="Close menu"
                 >
                   <X size={20} />
