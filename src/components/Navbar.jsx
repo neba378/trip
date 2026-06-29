@@ -115,7 +115,7 @@ export default function Navbar() {
                 <span className="text-white font-display font-bold text-xl">SAVANNA</span>
                 <button
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center justify-center w-10 h-10 rounded-lg text-white/60 hover:text-savanna-gold transition-all duration-200"
+            className="flex items-center justify-center w-10 h-10 rounded-lg text-white hover:text-savanna-gold transition-all duration-200"
                   aria-label="Close menu"
                 >
                   <X size={20} />
