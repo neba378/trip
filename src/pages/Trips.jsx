@@ -5,11 +5,26 @@ import { useBooking } from '../context/BookingContext';
 import TripCard from '../components/TripCard';
 import { TripCardSkeleton } from '../components/Skeleton';
 
+const categoryLabels = {
+  all: { en: 'All', am: 'ሁሉም' },
+  camping: { en: 'Camping', am: 'ካምፒንግ' },
+  hiking: { en: 'Hiking', am: 'ጉዞ' },
+  trekking: { en: 'Trekking', am: 'ትሬኪንግ' },
+  cultural: { en: 'Cultural', am: 'ባህላዊ' },
+  safari: { en: 'Safari', am: 'ሳፋሪ' },
+  historical: { en: 'Historical', am: 'ታሪካዊ' },
+};
+
 export default function Trips() {
   const { language, trips, tripsLoading } = useBooking();
   const [search, setSearch] = useState('');
   const [activeType, setActiveType] = useState('all');
   const [activeStatus, setActiveStatus] = useState('all');
+
+  const categories = useMemo(() => {
+    const cats = new Set(trips.map(t => t.category).filter(Boolean));
+    return ['all', ...cats];
+  }, [trips]);
 
   const filtered = useMemo(() => trips.filter(trip => {
     const name = language === 'en' ? (trip.title || '') : (trip.titleAm || '');
@@ -124,7 +139,7 @@ export default function Trips() {
             <div className="flex flex-col md:flex-row gap-8 w-full items-center">
               {/* Category Tabs */}
               <div className="flex gap-2 overflow-x-auto w-full no-scrollbar p-1">
-                {['all', 'camping', 'hiking', 'cultural', 'safari'].map(type => (
+                {categories.map(type => (
                   <button
                     key={type}
                     onClick={() => setActiveType(type)}
@@ -134,7 +149,9 @@ export default function Trips() {
                         : 'text-white/40 hover:text-savanna-gold'
                     }`}
                   >
-                    {type}
+                    {type === 'all' 
+                      ? (language === 'en' ? 'All' : 'ሁሉም')
+                      : (language === 'en' ? (categoryLabels[type]?.en || type) : (categoryLabels[type]?.am || type))}
                   </button>
                 ))}
               </div>

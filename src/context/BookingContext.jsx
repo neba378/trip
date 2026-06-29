@@ -1,6 +1,30 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { trips as fallbackTrips } from '../data/trips';
+
+const mapStaticTrip = (t) => ({
+  ...t,
+  category: t.type,
+  location: t.destination,
+  locationAm: t.destinationAm,
+  dateEn: t.dates.displayEn,
+  dateAm: t.dates.displayAm,
+  departureLocationEn: t.departure.location,
+  departureLocationAm: t.departure.locationAm,
+  departureTimeEn: t.departure.time,
+  departureTimeAm: t.departure.timeAm,
+  priceETB: t.pricing.regular,
+  priceUSD: t.pricing.foreigner && Math.round(t.pricing.foreigner),
+  priceForeignerUSD: t.pricing.foreigner,
+  descriptionEn: t.description,
+  descriptionAm: t.descriptionAm,
+  includesEn: (t.includes || []).map(i => ({ icon: i.icon, text: i.en })),
+  includesAm: (t.includes || []).map(i => ({ icon: i.icon, text: i.am })),
+  excludesEn: (t.excludes || []).map(i => ({ icon: i.icon, text: i.en })),
+  excludesAm: (t.excludes || []).map(i => ({ icon: i.icon, text: i.am })),
+  discounts: t.pricing.discounts,
+});
 
 const BookingContext = createContext(null);
 
@@ -8,10 +32,10 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 export function BookingProvider({ children }) {
   const [bookings, setBookings] = useState([]);
-  const [trips, setTrips] = useState([]);
+  const [trips, setTrips] = useState(() => fallbackTrips.map(mapStaticTrip));
   const [language, setLanguage] = useState('en'); // 'en' | 'am'
   const [loading, setLoading] = useState(false);
-  const [tripsLoading, setTripsLoading] = useState(true);
+  const [tripsLoading, setTripsLoading] = useState(false);
   const [bookingsLoading, setBookingsLoading] = useState(false);
   const [adminToken, setAdminToken] = useState(localStorage.getItem('savanna_admin_token'));
   const [bookedTrips, setBookedTrips] = useState(() => {
@@ -32,19 +56,16 @@ export function BookingProvider({ children }) {
     }
   }, [adminToken]);
 
-  const fetchTrips = async () => {
-    setTripsLoading(true);
+  const fetchTrips = useCallback(async () => {
     try {
-      const response = await axios.get(`${API_URL}/trips`);
-      if (response.data.success) {
+      const response = await axios.get(`${API_URL}/trips`, { timeout: 5000 });
+      if (response.data.success && response.data.data.length > 0) {
         setTrips(response.data.data);
       }
     } catch (error) {
-      console.error('Failed to fetch trips:', error);
-    } finally {
-      setTripsLoading(false);
+      console.error('API trips sync failed, using local data:', error);
     }
-  };
+  }, []);
 
   const fetchBookings = async () => {
     setBookingsLoading(true);
