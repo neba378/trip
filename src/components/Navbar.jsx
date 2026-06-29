@@ -94,84 +94,86 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Overlay */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[60] lg:hidden bg-[#121926]"
-style={{
-  backgroundColor: '#121926',
-  backdropFilter: 'blur(24px) saturate(1.4)',
-  WebkitBackdropFilter: 'blur(24px) saturate(1.4)',
-}}
-          >
-            <div className="h-full flex flex-col">
-              {/* Close button */}
-              <div className="flex items-center justify-between px-6 h-[72px] border-b border-savanna-gold/10">
-                <span className="text-white font-display font-bold text-xl">SAVANNA</span>
-                <button
-                  onClick={() => setMobileOpen(false)}
+<AnimatePresence>
+  {mobileOpen && (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      className="fixed inset-0 z-[60] lg:hidden"
+    >
+      {/* Solid background layer — sits behind everything, guaranteed opaque */}
+      <div
+        className="absolute inset-0"
+        style={{ backgroundColor: '#121926' }}
+      />
+
+      {/* Content layer */}
+      <div className="relative h-full flex flex-col">
+        {/* Close button */}
+        <div className="flex items-center justify-between px-6 h-[72px] border-b border-savanna-gold/10">
+          <span className="text-white font-display font-bold text-xl">SAVANNA</span>
+          <button
+            onClick={() => setMobileOpen(false)}
             className="flex items-center justify-center w-10 h-10 rounded-xl bg-savanna-gold/10 text-white hover:bg-savanna-gold hover:text-savanna-darker transition-all duration-200"
-                  aria-label="Close menu"
+            aria-label="Close menu"
+          >
+            <X size={20} />
+          </button>
+        </div>
+
+        {/* Links */}
+        <nav className="flex-1 flex flex-col items-center justify-center gap-8 px-6">
+          {links.map((link, i) => {
+            const isActive = location.pathname === link.path;
+            return (
+              <motion.div
+                key={link.path}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.08, duration: 0.3 }}
+              >
+                <Link
+                  to={link.path}
+                  className={`text-2xl font-display font-normal transition-colors duration-200 ${
+                    isActive ? 'text-savanna-gold' : 'text-white/70 hover:text-savanna-gold'
+                  }`}
                 >
-                  <X size={20} />
-                </button>
-              </div>
+                  {language === 'en' ? link.labelEn : link.labelAm}
+                </Link>
+              </motion.div>
+            );
+          })}
 
-              {/* Links */}
-              <nav className="flex-1 flex flex-col items-center justify-center gap-8 px-6">
-                {links.map((link, i) => {
-                  const isActive = location.pathname === link.path;
-                  return (
-                    <motion.div
-                      key={link.path}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.08, duration: 0.3 }}
-                    >
-                      <Link
-                        to={link.path}
-                        className={`text-2xl font-display font-normal transition-colors duration-200 ${
-                          isActive ? 'text-savanna-gold' : 'text-white/70 hover:text-savanna-gold'
-                        }`}
-                      >
-                        {language === 'en' ? link.labelEn : link.labelAm}
-                      </Link>
-                    </motion.div>
-                  );
-                })}
+          {/* Mobile CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.3 }}
+            className="mt-8 w-full space-y-3"
+          >
+            <Link
+              to="/trips"
+              className="btn-primary w-full text-center py-4"
+              onClick={() => setMobileOpen(false)}
+            >
+              {language === 'en' ? 'Book a Trip' : 'ጉዞ ያስይዙ'}
+            </Link>
 
-                {/* Mobile CTA */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5, duration: 0.3 }}
-                  className="mt-8 w-full space-y-3"
-                >
-                  <Link
-                    to="/trips"
-                    className="btn-primary w-full text-center py-4"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {language === 'en' ? 'Book a Trip' : 'ጉዞ ያስይዙ'}
-                  </Link>
-
-                  <button
-                    onClick={toggleLanguage}
-                    className="w-full flex items-center justify-center gap-2 text-white/40 hover:text-savanna-gold transition-colors text-xs font-medium uppercase tracking-widest py-3"
-                  >
-                    <Globe size={14} />
-                    <span>{language === 'en' ? 'አማርኛ' : 'ENGLISH'}</span>
-                  </button>
-                </motion.div>
-              </nav>
-            </div>
+            <button
+              onClick={toggleLanguage}
+              className="w-full flex items-center justify-center gap-2 text-white/40 hover:text-savanna-gold transition-colors text-xs font-medium uppercase tracking-widest py-3"
+            >
+              <Globe size={14} />
+              <span>{language === 'en' ? 'አማርኛ' : 'ENGLISH'}</span>
+            </button>
           </motion.div>
-        )}
-      </AnimatePresence>
+        </nav>
+      </div>
+    </motion.div>
+  )}
+</AnimatePresence>
     </header>
   );
 }
